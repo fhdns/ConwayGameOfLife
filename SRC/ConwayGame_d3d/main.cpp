@@ -163,6 +163,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     return 0;
   }
 
+  if(FAILED(InitGeometry()))
+  {
+    CleanupDevice();
+    return 0;
+  }
+
   // Инициализация матриц
   if(FAILED(InitMatrixes()))
   {
@@ -181,13 +187,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     }
     else
     {
-      if(FAILED(InitGeometry()))
+      if (!(GetTickCount() % 10))
       {
-        CleanupDevice();
-        return 0;
+        if(FAILED(InitGeometry()))
+        {
+          CleanupDevice();
+          return 0;
+        }
+        ConwayGame.Step();
       }
       Render();
-      ConwayGame.Step();
     }
   }
 
@@ -487,10 +496,14 @@ HRESULT InitGeometry()
 {
   HRESULT hr = S_OK;
 
+  if(g_pConstantBuffer) g_pConstantBuffer->Release();
+  if(g_pVertexBuffer) g_pVertexBuffer->Release();
+  if(g_pIndexBuffer) g_pIndexBuffer->Release();
+
   // Строим Тор
   DrawTorus(innerRaidus, outterRaidus, ConwayGame.GetWidth(), ConwayGame.GetHeight());
 
-  // Создание буфера вершин (пять углов пирамиды)
+  // Создание буфера вершин
   D3D11_BUFFER_DESC bd;                                     // Структура, описывающая создаваемый буфер
   ZeroMemory(&bd, sizeof(bd));                              // очищаем ее
   bd.Usage = D3D11_USAGE_DEFAULT;
