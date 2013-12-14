@@ -6,7 +6,7 @@ Conway's Game of Life
  
 ![ScreenShot](https://dl-web.dropbox.com/get/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA.JPG?w=AADTN32g8sHQLpRHmcP9GvfflJSeZrDMNIq6ALd3HnSPQg)
 
-OpenGL and DirectX
+3D Torus (OpenGL and DirectX)
 -------------------------
 
  * Видео: (http://youtu.be/TEyfbg2oCVI)
