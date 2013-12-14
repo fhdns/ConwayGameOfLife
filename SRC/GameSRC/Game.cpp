@@ -6,23 +6,14 @@
 
 void NewMap(G_MAP *map, int width, int height)
 {
-  (*map) = new bool*[width];
-
-  for (int i = 0; i < width; i++)
-  {
-    (*map)[i] = new bool[height];
-    memset((*map)[i], 0, height);
-  }
+  (*map) = new bool[width * height];
+  memset(*map, 0, width * height);
 }
 
 //-------------------------------------------------------------
 
 void DeleteMap(G_MAP *map, int width)
 {
-  for (int i = 0; i < width; i++)
-  {
-    delete[] (*map)[i];
-  }
   delete[] (*map);
   (*map) = 0;
 }
@@ -31,10 +22,8 @@ void DeleteMap(G_MAP *map, int width)
 
 bool CompareMap(G_MAP map1, G_MAP map2, int width, int height)
 {
-  for (int i = 0; i < width; i++)
-  {
-    if (memcmp(map1[i], map2[i], height)) return false;
-  }
+  if (memcmp(map1, map2, width * height)) return false;
+
   return true;
 }
 
@@ -42,13 +31,9 @@ bool CompareMap(G_MAP map1, G_MAP map2, int width, int height)
 
 bool isEmptyMap(G_MAP map, int width, int height)
 {
-  for (int i = 0; i < width; i++)
-  {
-    for (int j = 0; j < height; j++)
-    {
-      if (map[i][j]) return false;
-    }
-  }
+  for (int i = 0; i < width * height; i++)
+      if (map[i]) return false;
+
   return true;
 }
 
@@ -76,7 +61,7 @@ bool Game::GetCellState(int i, int j) const
   i = (i >= width)  ? 0 : (i < 0) ? width - 1  : i;
   j = (j >= height) ? 0 : (j < 0) ? height - 1 : j;
   
-  return map[i][j];
+  return map[i * height + j];
 }
 
 //-------------------------------------------------------------
@@ -131,14 +116,14 @@ void Game::Step()
     {
       // Game Rules
 
-      if (map[i][j] == death && GetLivingAround(i, j) == 3)
-        next_map[i][j] = life;
+      if (GetCellState(i, j) == death && GetLivingAround(i, j) == 3)
+        next_map[i * height + j] = life;
 
-      else if (map[i][j] == life && (GetLivingAround(i, j) == 2 || GetLivingAround(i, j) == 3))
-        next_map[i][j] = life;
+      else if (GetCellState(i, j) == life && (GetLivingAround(i, j) == 2 || GetLivingAround(i, j) == 3))
+        next_map[i * height + j] = life;
 
       else
-        next_map[i][j] = death;
+        next_map[i * height + j] = death;
     }
   }
   swap_map(map, next_map);

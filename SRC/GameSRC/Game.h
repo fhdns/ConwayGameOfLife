@@ -6,7 +6,7 @@
 //-------------------------------------------------------------
 enum    GAME_STATE { STATE_READY, STATE_RUNNING, STATE_ERROR };
 //-------------------------------------------------------------
-typedef bool**  G_MAP;
+typedef bool*   G_MAP;
 #define life    true
 #define death   false
 //-------------------------------------------------------------
@@ -31,7 +31,7 @@ public:
   void  Destroy();
   bool  isOver() const;
 
-  void  SetValue(int i, int j, bool state) { map[i][j] = state; }
+  void  SetValue(int i, int j, bool state) { map[i * height + j] = state; }
   void  SetTestValues();
   
   bool  GetCellState(int i, int j) const;
