@@ -139,7 +139,10 @@ void reshape(int x, int y)
 void idle(void)
 {
   yRotated += rotatePerOneTime;
-  ConwayGame.Step();
+  if (!(GetTickCount() % 10))
+  {
+    ConwayGame.Step();
+  }
   display();
 }
 
