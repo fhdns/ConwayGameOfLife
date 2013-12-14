@@ -30,23 +30,23 @@ HWND                    g_hWnd = NULL;
 
 D3D_DRIVER_TYPE         g_driverType = D3D_DRIVER_TYPE_NULL;
 D3D_FEATURE_LEVEL       g_featureLevel = D3D_FEATURE_LEVEL_11_0;
-ID3D11Device*           g_pd3dDevice = NULL;        // Устройство (для создания объектов)
-ID3D11DeviceContext*    g_pImmediateContext = NULL;	// Контекст (устройство рисования)
-IDXGISwapChain*         g_pSwapChain = NULL;		    // Цепь связи (буфера с экраном)
-ID3D11RenderTargetView* g_pRenderTargetView = NULL;	// Объект вида, задний буфер
-ID3D11Texture2D*        g_pDepthStencil = NULL;		  // Текстура буфера глубин
-ID3D11DepthStencilView* g_pDepthStencilView = NULL;	// Объект вида, буфер глубин
+ID3D11Device*           g_pd3dDevice = NULL;          // Устройство (для создания объектов)
+ID3D11DeviceContext*    g_pImmediateContext = NULL;   // Контекст (устройство рисования)
+IDXGISwapChain*         g_pSwapChain = NULL;          // Цепь связи (буфера с экраном)
+ID3D11RenderTargetView* g_pRenderTargetView = NULL;   // Объект вида, задний буфер
+ID3D11Texture2D*        g_pDepthStencil = NULL;       // Текстура буфера глубин
+ID3D11DepthStencilView* g_pDepthStencilView = NULL;   // Объект вида, буфер глубин
 
-ID3D11VertexShader*     g_pVertexShader = NULL;		  // Вершинный шейдер
-ID3D11PixelShader*      g_pPixelShader = NULL;		  // Пиксельный шейдер
-ID3D11InputLayout*      g_pVertexLayout = NULL;		  // Описание формата вершин
-ID3D11Buffer*           g_pVertexBuffer = NULL;		  // Буфер вершин
-ID3D11Buffer*           g_pIndexBuffer = NULL;		  // Буфер индексов вершин
-ID3D11Buffer*           g_pConstantBuffer = NULL;	  // Константный буфер
+ID3D11VertexShader*     g_pVertexShader = NULL;       // Вершинный шейдер
+ID3D11PixelShader*      g_pPixelShader = NULL;        // Пиксельный шейдер
+ID3D11InputLayout*      g_pVertexLayout = NULL;       // Описание формата вершин
+ID3D11Buffer*           g_pVertexBuffer = NULL;       // Буфер вершин
+ID3D11Buffer*           g_pIndexBuffer = NULL;        // Буфер индексов вершин
+ID3D11Buffer*           g_pConstantBuffer = NULL;     // Константный буфер
 
-XMMATRIX                g_World;					          // Матрица мира
-XMMATRIX                g_View;						          // Матрица вида
-XMMATRIX                g_Projection;				        // Матрица проекции
+XMMATRIX                g_World;                      // Матрица мира
+XMMATRIX                g_View;                       // Матрица вида
+XMMATRIX                g_Projection;                 // Матрица проекции
 
 //--------------------------------------------------------------------------------------
 std::vector<SimpleVertex> Vertices;   // Вершины тора
@@ -70,7 +70,7 @@ HRESULT InitMatrixes();                                   // Инициализ�
 void SetMatrixes(float fAngle);                           // Обновление матрицы мира
 void Render();                                            // Функция рисования
 void CleanupDevice();                                     // Удаление созданнных устройств DirectX
-LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);	    // Функция окна
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);     // Функция окна
 
 //--------------------------------------------------------------------------------------
 
@@ -300,8 +300,8 @@ HRESULT InitDevice()
 
   RECT rc;
   GetClientRect(g_hWnd, &rc);
-  UINT width = rc.right - rc.left;	// получаем ширину
-  UINT height = rc.bottom - rc.top;	// и высоту окна
+  UINT width = rc.right - rc.left;    // получаем ширину
+  UINT height = rc.bottom - rc.top;   // и высоту окна
 
   UINT createDeviceFlags = 0;
 #ifdef _DEBUG
@@ -327,19 +327,19 @@ HRESULT InitDevice()
 
   // Сейчас мы создадим устройства DirectX. Для начала заполним структуру,
   // которая описывает свойства переднего буфера и привязывает его к нашему окну.
-  DXGI_SWAP_CHAIN_DESC sd;			                      // Структура, описывающая цепь связи (Swap Chain)
-  ZeroMemory(&sd, sizeof(sd));	                      // очищаем ее
-  sd.BufferCount = 1;					                        // у нас один буфер
-  sd.BufferDesc.Width = width;		                    // ширина буфера
-  sd.BufferDesc.Height = height;		                  // высота буфера
-  sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	// формат пикселя в буфере
-  sd.BufferDesc.RefreshRate.Numerator = 75;			      // частота обновления экрана
+  DXGI_SWAP_CHAIN_DESC sd;                              // Структура, описывающая цепь связи (Swap Chain)
+  ZeroMemory(&sd, sizeof(sd));                          // очищаем ее
+  sd.BufferCount = 1;                                   // у нас один буфер
+  sd.BufferDesc.Width = width;                          // ширина буфера
+  sd.BufferDesc.Height = height;                        // высота буфера
+  sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;    // формат пикселя в буфере
+  sd.BufferDesc.RefreshRate.Numerator = 75;             // частота обновления экрана
   sd.BufferDesc.RefreshRate.Denominator = 1;
-  sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;	  // назначение буфера - задний буфер
-  sd.OutputWindow = g_hWnd;							              // привязываем к нашему окну
+  sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;     // назначение буфера - задний буфер
+  sd.OutputWindow = g_hWnd;                             // привязываем к нашему окну
   sd.SampleDesc.Count = 1;
   sd.SampleDesc.Quality = 0;
-  sd.Windowed = TRUE;						                      // не полноэкранный режим
+  sd.Windowed = TRUE;                                   // не полноэкранный режим
 
   for(UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++)
   {
@@ -374,17 +374,17 @@ HRESULT InitDevice()
 
   // Переходим к созданию буфера глубин
   // Создаем текстуру-описание буфера глубин
-  D3D11_TEXTURE2D_DESC descDepth;                   // Структура с параметрами
+  D3D11_TEXTURE2D_DESC descDepth;                     // Структура с параметрами
   ZeroMemory(&descDepth, sizeof(descDepth));
-  descDepth.Width = width;		                      // ширина и
-  descDepth.Height = height;		                    // высота текстуры
-  descDepth.MipLevels = 1;		                      // уровень интерполяции
+  descDepth.Width = width;                            // ширина и
+  descDepth.Height = height;                          // высота текстуры
+  descDepth.MipLevels = 1;                            // уровень интерполяции
   descDepth.ArraySize = 1;
-  descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;	// формат (размер пикселя)
+  descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;   // формат (размер пикселя)
   descDepth.SampleDesc.Count = 1;
   descDepth.SampleDesc.Quality = 0;
   descDepth.Usage = D3D11_USAGE_DEFAULT;
-  descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;		// вид - буфер глубин
+  descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;     // вид - буфер глубин
   descDepth.CPUAccessFlags = 0;
   descDepth.MiscFlags = 0;
   // При помощи заполненной структуры-описания создаем объект текстуры
@@ -393,9 +393,9 @@ HRESULT InitDevice()
     return hr;
 
   // Теперь надо создать сам объект буфера глубин
-  D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;	  // Структура с параметрами
+  D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;    // Структура с параметрами
   ZeroMemory(&descDSV, sizeof(descDSV));
-  descDSV.Format = descDepth.Format;		    // формат как в текстуре
+  descDSV.Format = descDepth.Format;        // формат как в текстуре
   descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
   descDSV.Texture2D.MipSlice = 0;
   // При помощи заполненной структуры-описания и текстуры создаем объект буфера глубин
@@ -440,7 +440,7 @@ HRESULT LoadShaders()
   // Создание вершинного шейдера
   hr = g_pd3dDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, &g_pVertexShader);
   if (FAILED(hr))
-  {	
+  {  
     pVSBlob->Release();
     return hr;
   }
@@ -491,26 +491,26 @@ HRESULT InitGeometry()
   DrawTorus(innerRaidus, outterRaidus, ConwayGame.GetWidth(), ConwayGame.GetHeight());
 
   // Создание буфера вершин (пять углов пирамиды)
-  D3D11_BUFFER_DESC bd;	                                  // Структура, описывающая создаваемый буфер
-  ZeroMemory(&bd, sizeof(bd));				                    // очищаем ее
+  D3D11_BUFFER_DESC bd;                                     // Структура, описывающая создаваемый буфер
+  ZeroMemory(&bd, sizeof(bd));                              // очищаем ее
   bd.Usage = D3D11_USAGE_DEFAULT;
-  bd.ByteWidth = sizeof(SimpleVertex) * Vertices.size();	// размер буфера
-  bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;	              // тип буфера - буфер вершин
+  bd.ByteWidth = sizeof(SimpleVertex) * Vertices.size();    // размер буфера
+  bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;                  // тип буфера - буфер вершин
   bd.CPUAccessFlags = 0;
-  D3D11_SUBRESOURCE_DATA InitData;	                      // Структура, содержащая данные буфера
-  ZeroMemory(&InitData, sizeof(InitData));	              // очищаем ее
-  InitData.pSysMem = &Vertices[0];				                // указатель на наши вершины
+  D3D11_SUBRESOURCE_DATA InitData;                          // Структура, содержащая данные буфера
+  ZeroMemory(&InitData, sizeof(InitData));                  // очищаем ее
+  InitData.pSysMem = &Vertices[0];                          // указатель на наши вершины
   // Вызов метода g_pd3dDevice создаст объект буфера вершин
   hr = g_pd3dDevice->CreateBuffer(&bd, &InitData, &g_pVertexBuffer);
   if (FAILED(hr))
     return hr;
 
   // Создание буфера индексов:
-  bd.Usage = D3D11_USAGE_DEFAULT;		            // Структура, описывающая создаваемый буфер
+  bd.Usage = D3D11_USAGE_DEFAULT;                   // Структура, описывающая создаваемый буфер
   bd.ByteWidth = sizeof(WORD) * Indices.size();
-  bd.BindFlags = D3D11_BIND_INDEX_BUFFER;       // тип - буфер индексов
+  bd.BindFlags = D3D11_BIND_INDEX_BUFFER;           // тип - буфер индексов
   bd.CPUAccessFlags = 0;
-  InitData.pSysMem = &Indices[0];				        // указатель на наш массив индексов
+  InitData.pSysMem = &Indices[0];                   // указатель на наш массив индексов
   // Вызов метода g_pd3dDevice создаст объект буфера индексов
   hr = g_pd3dDevice->CreateBuffer(&bd, &InitData, &g_pIndexBuffer);
   if (FAILED(hr))
@@ -527,8 +527,8 @@ HRESULT InitGeometry()
 
   // Создание константного буфера
   bd.Usage = D3D11_USAGE_DEFAULT;
-  bd.ByteWidth = sizeof(ConstantBuffer);		  // размер буфера = размеру структуры
-  bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;	// тип - константный буфер
+  bd.ByteWidth = sizeof(ConstantBuffer);      // размер буфера = размеру структуры
+  bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;  // тип - константный буфер
   bd.CPUAccessFlags = 0;
   hr = g_pd3dDevice->CreateBuffer(&bd, NULL, &g_pConstantBuffer);
   if (FAILED(hr))
@@ -545,16 +545,16 @@ HRESULT InitMatrixes()
 {
   RECT rc;
   GetClientRect(g_hWnd, &rc);
-  UINT width = rc.right - rc.left;	// получаем ширину
-  UINT height = rc.bottom - rc.top;	// и высоту окна
+  UINT width = rc.right - rc.left;    // получаем ширину
+  UINT height = rc.bottom - rc.top;   // и высоту окна
 
   // Инициализация матрицы мира
   g_World = XMMatrixIdentity();
 
   // Инициализация матрицы вида
-  XMVECTOR Eye = XMVectorSet(0.0f, 1.0f, 2.0f, 0.0f);	  // Откуда смотрим
-  XMVECTOR At = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);	  // Куда смотрим
-  XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);	  // Направление верха
+  XMVECTOR Eye = XMVectorSet(0.0f, 1.0f, 2.0f, 0.0f);     // Откуда смотрим
+  XMVECTOR At = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);      // Куда смотрим
+  XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);      // Направление верха
   g_View = XMMatrixLookAtLH(Eye, At, Up);
 
   // Инициализация матрицы проекции
