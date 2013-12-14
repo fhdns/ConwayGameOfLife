@@ -1,8 +1,8 @@
 #include <windows.h>
 #include <gl/gl.h>
 #include <math.h>
-#include "../../Components/glut/glut.h"
-#include "../GameSRC/Game.h"
+#include "glut.h"
+#include "Game.h"
 
 #define M_PI                3.14159265359
 // --------------------------------------
@@ -38,9 +38,6 @@ void DrawTorus(GLfloat r, GLfloat R, GLint nsides, GLint rings, GLenum type = GL
   GLfloat theta, phi, theta1, phi1;
   GLfloat p0[03], p1[3], p2[3], p3[3];
   GLfloat n0[3], n1[3], n2[3], n3[3];
-
-  // Get Map
-  G_MAP map = ConwayGame.GetMap();
 
   for (i = 0; i < rings; i++)
   {
@@ -86,7 +83,7 @@ void DrawTorus(GLfloat r, GLfloat R, GLint nsides, GLint rings, GLenum type = GL
       // Drawing
       glBegin(type);
       
-      if (map[i][j])
+      if (ConwayGame.GetCellState(i, j))
         glColor3f(CELL_ALIVE_COLOR);
       else if ((j + i)&1)
         glColor3f(CELL_DEATH_COLOR);
