@@ -9,7 +9,7 @@ Conway's Game of Life
 OpenGL and DirectX
 -------------------------
 
- ![Video](http://www.youtube.com/watch?v=TEyfbg2oCVI)
+ [![ScreenShot]()](http://youtu.be/TEyfbg2oCVI)
 
 Download
 -------------------------
