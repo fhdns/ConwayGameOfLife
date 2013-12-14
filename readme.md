@@ -4,7 +4,7 @@ Conway's Game of Life
  * ru - http://ru.wikipedia.org/wiki/Жизнь_(игра)
  * en - http://en.wikipedia.org/wiki/Conway's_Game_of_Life
  
- [![ScreenShot](http://s6.hostingkartinok.com/uploads/images/2013/12/b02210516aa689077754cd65126d63b9.jpg)[http://www.youtube.com/watch?v=dTtB77m9v28]]
+![ScreenShot](https://dl-web.dropbox.com/get/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA.JPG?w=AADTN32g8sHQLpRHmcP9GvfflJSeZrDMNIq6ALd3HnSPQg)
 
 OpenGL and DirectX
 -------------------------
@@ -14,7 +14,7 @@ OpenGL and DirectX
 Download
 -------------------------
 
- * https://www.dropbox.com/s/uynw4lfznyhoq3e/Release.rar
+ * Release (.exe): (https://www.dropbox.com/s/uynw4lfznyhoq3e/Release.rar)
 
 License
 -------------------------
