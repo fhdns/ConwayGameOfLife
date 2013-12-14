@@ -18,7 +18,7 @@
 GLfloat xRotated = -10.0f, yRotated = 30.0f, zRotated = 40.0f;
 const GLdouble innerRaidus  = 0.5f;
 const GLdouble outterRaidus = 0.8f;
-const GLdouble rotatePerOneTime = 0.5f;
+const GLdouble rotatePerOneTime = 0.1f;
 // --------------------------------------
 // Colors                   R, G, B, Alpha
 #define CLEAR_COLOR         0.0f, 0.0f, 0.0f, 0.0f
@@ -139,8 +139,7 @@ void reshape(int x, int y)
 void idle(void)
 {
   yRotated += rotatePerOneTime;
-  if ((int)yRotated %3)
-    ConwayGame.Step();
+  ConwayGame.Step();
   display();
 }
 
