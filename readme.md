@@ -1,15 +1,15 @@
 Conway's Game of Life
 =========
 
- * ru - http://ru.wikipedia.org/wiki/%D0%96%D0%B8%D0%B7%D0%BD%D1%8C_(%D0%B8%D0%B3%D1%80%D0%B0)
+ * ru - http://ru.wikipedia.org/wiki/Жизнь_(игра)
  * en - http://en.wikipedia.org/wiki/Conway's_Game_of_Life
  
- [http://www.youtube.com/watch?v=dTtB77m9v28]
+ [![ScreenShot](http://s6.hostingkartinok.com/uploads/images/2013/12/b02210516aa689077754cd65126d63b9.jpg)[http://www.youtube.com/watch?v=dTtB77m9v28]]
 
 OpenGL and DirectX
 -------------------------
 
- [![ScreenShot]()](http://youtu.be/TEyfbg2oCVI)
+ * Видео: (http://youtu.be/TEyfbg2oCVI)
 
 Download
 -------------------------
