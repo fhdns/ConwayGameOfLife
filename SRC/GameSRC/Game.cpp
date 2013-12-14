@@ -74,7 +74,7 @@ Game::~Game(void)
 bool Game::GetCellState(int i, int j) const
 {
   i = (i >= width)  ? 0 : (i < 0) ? width - 1  : i;
-  i = (i >= height) ? 0 : (i < 0) ? height - 1 : i;
+  j = (j >= height) ? 0 : (j < 0) ? height - 1 : j;
   
   return map[i][j];
 }
