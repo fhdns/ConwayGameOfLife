@@ -15,30 +15,29 @@ typedef bool**  G_MAP;
 
 class Game
 {
-public:
-  Game(void);
-  ~Game(void);
-  
-  GAME_STATE CheckState();
-
-  void Init(int width = DEFAULT_MAP_SIZE_W, int height = DEFAULT_MAP_SIZE_H);
-  void Step();
-  void Destroy();
-  bool isOver() const;
-  
-  void SetValue(int i, int j, bool state) { map[i][j] = state; }
-  void SetTestValues();
-
-  G_MAP  GetMap()    const { return map; }
-  int    GetWidth()  const { return width; }
-  int    GetHeight() const { return height; }
-
-private:
   int     width;
   int     height;
   G_MAP   map;
   G_MAP   next_map;
 
-  inline bool*  cell_state(int i, int j);
-  inline int    living_around(int i, int j);
+public:
+  Game(void);
+  ~Game(void);
+  
+  GAME_STATE CheckGameState();
+
+  void  Init(int width = DEFAULT_MAP_SIZE_W, int height = DEFAULT_MAP_SIZE_H);
+  void  Step();
+  void  Destroy();
+  bool  isOver() const;
+
+  void  SetValue(int i, int j, bool state) { map[i][j] = state; }
+  void  SetTestValues();
+  
+  bool  GetCellState(int i, int j) const;
+  int   GetLivingAround (int i, int j) const;
+
+  G_MAP GetMap()    const { return map; }
+  int   GetWidth()  const { return width; }
+  int   GetHeight() const { return height; }
 };

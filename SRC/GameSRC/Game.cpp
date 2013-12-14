@@ -71,36 +71,33 @@ Game::~Game(void)
 
 //-------------------------------------------------------------
 
-bool* Game::cell_state(int i, int j)
+bool Game::GetCellState(int i, int j) const
 {
-  i = (i < width)   ? i : 0;
-  j = (j < height)  ? j : 0;
-    
-  i = (i >= 0)   ? i : width - 1;
-  j = (j >= 0)   ? j : height - 1;
-
-  return &map[i][j];
+  i = (i >= width)  ? 0 : (i < 0) ? width - 1  : i;
+  i = (i >= height) ? 0 : (i < 0) ? height - 1 : i;
+  
+  return map[i][j];
 }
 
 //-------------------------------------------------------------
 
-int Game::living_around(int i, int j)
+int Game::GetLivingAround(int i, int j) const
 {
-  return BOOL_TO_INT(*cell_state(i + 1, j - 1)) +
-          BOOL_TO_INT(*cell_state(i + 1, j + 0)) +
-          BOOL_TO_INT(*cell_state(i + 1, j + 1)) +
+  return  BOOL_TO_INT(GetCellState(i + 1, j - 1)) +
+          BOOL_TO_INT(GetCellState(i + 1, j + 0)) +
+          BOOL_TO_INT(GetCellState(i + 1, j + 1)) +
 
-          BOOL_TO_INT(*cell_state(i + 0, j - 1)) +
-          BOOL_TO_INT(*cell_state(i + 0, j + 1)) +
+          BOOL_TO_INT(GetCellState(i + 0, j - 1)) +
+          BOOL_TO_INT(GetCellState(i + 0, j + 1)) +
 
-          BOOL_TO_INT(*cell_state(i - 1, j - 1)) +
-          BOOL_TO_INT(*cell_state(i - 1, j + 0)) +
-          BOOL_TO_INT(*cell_state(i - 1, j + 1)) ;
+          BOOL_TO_INT(GetCellState(i - 1, j - 1)) +
+          BOOL_TO_INT(GetCellState(i - 1, j + 0)) +
+          BOOL_TO_INT(GetCellState(i - 1, j + 1)) ;
 }
 
 //-------------------------------------------------------------
 
-GAME_STATE Game::CheckState()
+GAME_STATE Game::CheckGameState()
 {
   if (!map && !next_map)  return STATE_READY;
   if (map || next_map)    return STATE_RUNNING;
@@ -112,7 +109,7 @@ GAME_STATE Game::CheckState()
 
 void Game::Init(int width, int height)
 {
-  if (CheckState() != STATE_READY) Destroy();
+  if (CheckGameState() != STATE_READY) Destroy();
   if (!width || !height) return;
 
   this->width   = width;
@@ -126,7 +123,7 @@ void Game::Init(int width, int height)
 
 void Game::Step()
 {
-  if (CheckState() != STATE_RUNNING) return;
+  if (CheckGameState() != STATE_RUNNING) return;
 
   for (int i = 0; i < width; i++)
   {
@@ -134,10 +131,10 @@ void Game::Step()
     {
       // Game Rules
 
-      if (map[i][j] == death && living_around(i, j) == 3)
+      if (map[i][j] == death && GetLivingAround(i, j) == 3)
         next_map[i][j] = life;
 
-      else if (map[i][j] == life && (living_around(i, j) == 2 || living_around(i, j) == 3))
+      else if (map[i][j] == life && (GetLivingAround(i, j) == 2 || GetLivingAround(i, j) == 3))
         next_map[i][j] = life;
 
       else
@@ -151,7 +148,7 @@ void Game::Step()
 
 void Game::Destroy()
 {
-  if (CheckState() != STATE_RUNNING) return;
+  if (CheckGameState() != STATE_RUNNING) return;
   DeleteMap(&map, width);
   DeleteMap(&next_map, width);
 }
@@ -160,7 +157,7 @@ void Game::Destroy()
 
 void Game::SetTestValues()
 {
-  if (height < 10 || width < 10 || CheckState() != STATE_RUNNING) return;
+  if (height < 10 || width < 10 || CheckGameState() != STATE_RUNNING) return;
   SetValue(0, 0, 1);
   SetValue(1, 1, 1);  
   SetValue(2, 1, 1); 
