@@ -4,7 +4,7 @@ Conway's Game of Life
  * ru - http://ru.wikipedia.org/wiki/Жизнь_(игра)
  * en - http://en.wikipedia.org/wiki/Conway's_Game_of_Life
  
-![ScreenShot](http://www.dropbox.com/s/77udvxldvjgvdfh/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA.JPG)
+![ScreenShot](http://s6.hostingkartinok.com/uploads/images/2013/12/585ed86594737e5a107df7b1d3691999.jpg)
 
 3D Torus (OpenGL and DirectX)
 -------------------------
